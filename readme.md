@@ -1,7 +1,7 @@
 Under preparation
 =================
 
-We are under preapartion of the next steps for PopcornJS library, further details will be available soon.
+We are preparing the next steps for the PopcornJS library. Further details will be available soon.
 
 ---
 
