@@ -1,10 +1,3 @@
-Under preparation
-=================
-
-We are preparing the next steps for the PopcornJS library. Further details will be available soon.
-
----
-
 Popcorn.js
 =============
 Mozilla's HTML5 Video Framework
@@ -27,7 +20,7 @@ The Popcorn.js community is a mix of developers, filmmakers, artists, and everyt
 * [Mailing List for Users](https://mail.mozilla.org/listinfo/community-popcorn)
 * [IRC Channel for Developers and Technical Users](irc://irc.mozilla.org/popcorn)
 * [Twitter @popcornjs](https://twitter.com/#!/popcornjs)
-* [Documentation](https://mozilla.github.io/popcorn-docs)
+* [Documentation](https://menismu.github.io/popcorn-docs)
 * [File a Bug](https://github.com/mozilla/popcorn-js/issues)
 
 
