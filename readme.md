@@ -1,10 +1,3 @@
-Under preparation
-=================
-
-We are preparing the next steps for the PopcornJS library. Further details will be available soon.
-
----
-
 Popcorn.js
 =============
 Mozilla's HTML5 Video Framework
