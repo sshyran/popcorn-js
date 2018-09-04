@@ -17,29 +17,27 @@ Community
 -------------
 The Popcorn.js community is a mix of developers, filmmakers, artists, and everything in between.  If you are interested in using Popcorn.js or helping us build it, you can use one or more of the following:
 
-* [Mailing List for Users](https://mail.mozilla.org/listinfo/community-popcorn)
-* [IRC Channel for Developers and Technical Users](irc://irc.mozilla.org/popcorn)
-* [Twitter @popcornjs](https://twitter.com/#!/popcornjs)
+* [Twitter @popcornjs](https://twitter.com/popcornjs)
 * [Documentation](https://menismu.github.io/popcorn-docs)
-* [File a Bug](https://github.com/mozilla/popcorn-js/issues)
+* [File a Bug](https://github.com/menismu/popcorn-js/issues)
 
 
 For Developers
 -------------
-You can follow the project's bugs and activity [here](https://github.com/mozilla/popcorn-js/issues).
+You can follow the project's bugs and activity [here](https://github.com/menismu/popcorn-js/issues).
 
 For Plugin Authors
 -------------
 Popcorn.js offers a powerful plugin architecture. Plugins are a way for developers to wrap web functionality and allow it to be placed on a timeline, responding to a point in a video or other media resource.
 
-Take a look at our growing [gallery of officially supported plugins](https://mozilla.github.io/popcorn-docs/plugins/).
+Take a look at our growing [gallery of officially supported plugins](https://menismu.github.io/popcorn-docs/plugins/).
 
 Have you built a cool plugin, or have an idea for one? Let us know!
 
 
 License
 -------------
-Popcorn.js is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+Popcorn.js is made available under the [MIT License](https://opensource.org/licenses/mit-license.php).
 
 
 Acknowledgements
@@ -47,11 +45,10 @@ Acknowledgements
 Popcorn.js is built and maintained by a growing community, with the support of:
 
 * [Mozilla](https://www.mozilla.org/)
-* [Mozilla Popcorn](https://mozillalabs.com/en-US/popcorn/)
-* [Seneca College's Centre for Development of Open Technology](http://zenit.senecac.on.ca/wiki/index.php/Main_Page)
-* [Bocoup](http://bocoup.com/)
+* [Seneca College's Centre for Development of Open Technology](https://wiki.cdot.senecacollege.ca/wiki/Main_Page)
+* [Bocoup](https://bocoup.com/)
 
 
 Changelog
 -------------
-A changelog can be found [here](https://github.com/mozilla/popcorn-js/releases).
+A changelog can be found [here](https://github.com/menismu/popcorn-js/releases).
