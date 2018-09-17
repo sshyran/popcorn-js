@@ -1421,7 +1421,7 @@ asyncTest( "Popcorn.events.hooks: canplayall", 1, function() {
         ogv: document.createElement( "source" ),
         webm: document.createElement( "source" )
       },
-      url = "http://videos.mozilla.org/serv/webmademovies/popcornplug.";
+      url = "trailer.";
 
   video.id = "event-fixture";
   video.controls = true;
