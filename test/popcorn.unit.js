@@ -1288,7 +1288,7 @@ asyncTest( "play(n)/pause(n) custom stop()", function() {
   };
 
   var outerHTML = [
-      "<video id='video-fixture' preload='auto' controls='' style='display:;width:300px' tabindex='0'>",
+      "<video id='video-fixture' preload='auto' controls='' style='display:;width:300px' tabindex='0' muted='muted'>",
       document.getElementById( "video" ).innerHTML,
       "</video>"
       ].join( "\n" ),
