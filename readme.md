@@ -13,6 +13,14 @@ Anything you can do on the web can be turned into a Popcorn.js plugin, and becom
 
 Try a live code example [here](http://jsfiddle.net/rwaldron/xhXE6/).
 
+Running Tets
+-------------
+
+1. Install `node and npm`, find more details [here](https://www.npmjs.com/get-npm)
+2. Install express running the command `npm install --save express`
+3. Run the command `node server` from the root path of `popcorn-js`
+4. Open your favourite browser and navigate to `http://localhost:8000/test/`
+
 Community
 -------------
 The Popcorn.js community is a mix of developers, filmmakers, artists, and everything in between.  If you are interested in using Popcorn.js or helping us build it, you can use one or more of the following:
