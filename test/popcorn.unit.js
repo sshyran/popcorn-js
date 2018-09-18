@@ -5449,7 +5449,7 @@ test( "Basic", 2, function() {
 
 asyncTest( "Request Type: GET", 1, function() {
   Popcorn.xhr({
-    url: "data/method.php?a=1",
+    url: "method?a=1",
     type: "GET",
     dataType: "json",
     success: function( data ) {
@@ -5461,7 +5461,7 @@ asyncTest( "Request Type: GET", 1, function() {
 
 asyncTest( "Request Type: POST", 1, function() {
   Popcorn.xhr({
-    url: "data/method.php",
+    url: "method",
     type: "POST",
     data: "a=1",
     dataType: "json",
