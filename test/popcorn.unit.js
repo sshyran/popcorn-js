@@ -5617,7 +5617,7 @@ if ( !/file/.test( location.protocol ) ) {
 
     Popcorn.xhr({
 
-      url: "data/jsonp.php?callback=jsonp",
+      url: "jsonp?callback=jsonp",
       dataType: "jsonp",
       success: function( data ) {
 
@@ -5639,7 +5639,7 @@ if ( !/file/.test( location.protocol ) ) {
 
     Popcorn.xhr.getJSONP(
 
-      "data/jsonp.php?callback=?",
+      "jsonp?callback=?",
       function( data ) {
 
         ok( data, "getJSONP returns data" );
@@ -5651,7 +5651,7 @@ if ( !/file/.test( location.protocol ) ) {
 
   asyncTest( "JSONP xhr.getJSONP, strictly enforced parameter with callback placeholder", 1, function() {
     Popcorn.xhr.getJSONP(
-      "data/jsonpfancyapi.php?jsonpfancyapi=?",
+      "jsonpfancyapi?jsonpfancyapi=?",
       function( data ) {
         ok( data, "getJSONP with placeholder callback name returns data" );
         start();
@@ -5683,7 +5683,7 @@ if ( !/file/.test( location.protocol ) ) {
 
     Popcorn.getJSONP(
 
-      "data/jsonp.php?callback=jsonp",
+      "jsonp?callback=jsonp",
       function( data ) {
 
         ok( data, "getJSONP returns data" );
@@ -5704,7 +5704,7 @@ if ( !/file/.test( location.protocol ) ) {
 
     Popcorn.getJSONP(
 
-      "data/jsonp.php?nonsense=no?sense",
+      "jsonp?nonsense=no?sense",
       function( data ) {
 
         ok( data, "getJSONP returns data" );

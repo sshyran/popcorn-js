@@ -23,4 +23,28 @@ app.post('/test/method', function (req, res) {
     res.send('{ "method": "post" }');
 });
 
+/*
+ * Get method for testing purposes.
+ * 
+ * It replaces old /test/data/jsonp.php
+ */
+app.get('/test/jsonp', function (req, res) {
+    res.send(req.query.callback + '({ "data": {"lang": "en", "length": 25} });');
+});
+
+/*
+ * Get method for testing purposes.
+ * 
+ * It replaces old /test/data/jsonpfancyapi.php
+ */
+app.get('/test/jsonpfancyapi', function (req, res) {
+    var callback = req.questy.callback;
+
+    if (!callback) {
+        res.send('Invalid Parameter');
+    } else {
+        res.send(callback + '({ "data": {"lang": "en", "length": 25} });');    
+    }
+});
+
 app.listen(port);
