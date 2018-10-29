@@ -5772,7 +5772,7 @@ asyncTest( "Popcorn.getScript()", function() {
 
   Popcorn.getScript(
 
-    "http://popcornjs.org/code/test/data/testfunction2.js",
+    "http://localhost:8000/test/data/testfunction2.js",
     function() {
 
       ok( true, "getScript C returned" );
