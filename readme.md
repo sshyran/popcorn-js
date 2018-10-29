@@ -21,6 +21,8 @@ Running Tets
 3. Run the command `node server` from the root path of `popcorn-js`
 4. Open your favourite browser and navigate to `http://localhost:8000/test/`
 
+Note. Some tests need focus and might be failing, refer to console or test output to check when a test fails.
+
 Community
 -------------
 The Popcorn.js community is a mix of developers, filmmakers, artists, and everything in between.  If you are interested in using Popcorn.js or helping us build it, you can use one or more of the following:
