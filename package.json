@@ -1,0 +1,13 @@
+{
+  "name": "popcorn-js",
+  "version": "1.5.11",
+  "description": "The HTML5 Media Framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/menismu/popcorn-js"
+  },
+  "dependencies": {
+    
+  },
+  "license": "MIT"
+}
