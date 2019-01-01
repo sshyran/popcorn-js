@@ -7,7 +7,7 @@ asyncTest( "Popcorn Image Plugin", function() {
       imagediv = document.getElementById( "imagediv" ),
       sources = [
         "http://www.drumbeat.org/images/drumbeat-logo-splash.png",
-        "http://www.petmountain.com/category/mini/organic-dog-supplies/520/organic-dog-supplies.jpg",
+        "https://images.acenda-static.com/petmountain/product/retina/1500x1500/7/75bce62c59222e.jpg",
         "http://www.botskool.com/sites/default/files/images/javascript.png"
       ];
 
