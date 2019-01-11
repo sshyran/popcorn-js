@@ -71,7 +71,7 @@
     var isUserIDReady = function() {
       if ( !_userid ) {
 
-        _uri  = "http://api.flickr.com/services/rest/?method=flickr.people.findByUsername&";
+        _uri  = "https://api.flickr.com/services/rest/?method=flickr.people.findByUsername&";
         _uri += "username=" + options.username + "&api_key=" + options.apikey + "&format=json&jsoncallback=flickr";
         Popcorn.getJSONP( _uri, function( data ) {
           _userid = data.user.nsid;
