@@ -7,7 +7,7 @@
     "url": "https://github.com/menismu/popcorn-js"
   },
   "dependencies": {
-    
+    "express": "^4.16.4"
   },
   "license": "MIT"
 }
