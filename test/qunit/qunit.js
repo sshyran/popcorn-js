@@ -347,6 +347,10 @@ QUnit = {
 		test.queue();
 	},
 
+	skip: function( testName, expected, callback, async ) {
+		// do nothing
+	},
+
 	// Specify the number of expected assertions to gurantee that failed test (no assertions are run at all) don't slip through.
 	expect: function( asserts ) {
 		config.current.expected = asserts;

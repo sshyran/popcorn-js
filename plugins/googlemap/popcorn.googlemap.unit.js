@@ -1,4 +1,4 @@
-test( "Popcorn Google Map Plugin", function() {
+skip( "Popcorn Google Map Plugin", function() {
 
   var popped = Popcorn( "#video" ),
       expects = 25,
