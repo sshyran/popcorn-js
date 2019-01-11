@@ -1,4 +1,4 @@
-test( "Popcorn Google Feed Plugin", function() {
+skip( "Popcorn Google Feed Plugin", function() {
 
   var popped = Popcorn( "#video" ),
       expects = 12,
