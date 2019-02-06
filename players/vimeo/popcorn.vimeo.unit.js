@@ -99,7 +99,7 @@ asyncTest( "ended", 6, function() {
   var p = Popcorn.vimeo( "#player", "http://player.vimeo.com/video/11336811" )
     .on( "ended", function() {
       ok( true, "ended fired" );
-      ok( this.media.ended, "ended is false after ended event" );
+      ok( this.media.ended, "ended is true after ended event" );
       ok( this.paused(), "paused attribute is true" );
       p.on( "seeked", function() {
         ok( !this.media.ended, "ended is false after seeking" );
