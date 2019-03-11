@@ -128,7 +128,7 @@ var wikiCallback;
       };
 
       if ( options.src ) {
-        Popcorn.getScript( "//" + options.lang + ".wikipedia.org/w/api.php?action=parse&props=text&redirects&page=" +
+        Popcorn.getScript( "//" + options.lang + ".wikipedia.org/w/api.php?action=parse&prop=text&redirects&page=" +
           options.src.slice( options.src.lastIndexOf( "/" ) + 1 )  + "&format=json&callback=wikiCallback" + _guid );
       }
 
