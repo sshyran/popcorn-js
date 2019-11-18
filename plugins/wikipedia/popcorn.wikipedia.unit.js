@@ -15,7 +15,7 @@ test( "Popcorn wikipedia Plugin", function() {
 
   stop();
 
-  ok( "wikipedia" in popped, "wikipedia is a mehtod of the popped instance" );
+  ok( "wikipedia" in popped, "wikipedia is a method of the popped instance" );
   plus();
 
   equal( theArticle.innerHTML, "", "initially, there is nothing in the wikidiv" );
@@ -27,14 +27,14 @@ test( "Popcorn wikipedia Plugin", function() {
       src: "http://en.wikipedia.org/wiki/Cape_Town",
       title: "this is an article",
       target: "wikidiv",
-      numberofwords: 22
+      paragraphs: 4
     })
     .wikipedia({
       start: 4,
       end: 5,
       src: "http://en.wikipedia.org/wiki/S%C3%A3o_Paulo",
       target: "wikidiv",
-      numberofwords: 43
+      paragraphs: 5
     })
     .wikipedia({
       start: 2,
@@ -42,41 +42,43 @@ test( "Popcorn wikipedia Plugin", function() {
       src: "http://en.wikipedia.org/wiki/Bunny",
       title: "This is an article about bunnies",
       target: "wikidiv",
-      numberofwords: 1000
+      paragraphs: 20
     })
     .volume( 0 )
     .play();
 
   popped.cue( 2, function() {
-    notEqual( theArticle.innerHTML, "", "wikidiv now contains information" );
+    let thisInstance = theArticle.querySelector('div');
+    console.log("starting test 1");
+    console.log(thisInstance);
+    notEqual( thisInstance.innerHTML, "", "wikidiv now contains information" );
     plus();
-    equal( theArticle.childElementCount, 4, "wikidiv now contains four child elements" );
+    equal( thisInstance.childElementCount, 2, "wikidiv now contains two child elements" );
     plus();
-    equal( theArticle.children[ 0 ].innerHTML, "this is an article", "wikidiv has the right title" );
+    equal( thisInstance.querySelector('h1 a').innerHTML, "this is an article", "wikidiv has the right title" );
     plus();
-    notEqual( theArticle.children[ 1 ].innerHTML, "", "wikidiv has some content" );
+    notEqual( thisInstance.querySelector('div.mw-parser-output').innerHTML, "", "wikidiv has some content" );
     plus();
     // subtract 1 from length for the  '...' added in by the plugin
-    equal( theArticle.children[ 1 ].innerHTML.split( " " ).length -1, 22, "wikidiv contains 22 words" );
-    plus();
-    equal( theArticle.children[ 3 ].innerHTML.split( " " ).length - 1, 1000, "redirected article successfully retrieved 1000 words" );
+    equal( thisInstance.querySelectorAll('div.mw-parser-output p').length, 4, "wikidiv contains 4 paragraphs" );
     plus();
   });
 
   popped.cue( 3, function() {
-    equal( theArticle.childElementCount, 2, "first wikipedia article was cleared properly" );
+    equal( theArticle.childElementCount, 1, "first wikipedia article was cleared properly" );
     plus();
   });
 
   popped.cue( 4, function() {
-    notEqual( theArticle.innerHTML, "", "wikidiv now contains information" );
+    let thisInstance = theArticle.querySelector('#wikidiv2');
+    notEqual( thisInstance.innerHTML, "", "wikidiv2 now contains information" );
     plus();
-    equal( theArticle.childElementCount, 2, "wikidiv now contains two child elements" );
+    equal( thisInstance.childElementCount, 2, "wikidiv2 now contains two child elements" );
     plus();
-    notEqual( theArticle.children[ 1 ].innerHTML, "", "wikidiv has the right content" );
+    notEqual( thisInstance.querySelector('div.mw-parser-output').innerHTML, "", "wikidiv has some content" );
     plus();
     // subtract 1 from length for the  '...' added in by the plugin
-    equal( theArticle.children[ 1 ].innerHTML.split(" ").length - 1, 43, "wikidiv contains 43 words" );
+    equal( thisInstance.querySelectorAll('div.mw-parser-output p').length, 20, "wikidiv contains 43 words" );
     plus();
   });
 
