@@ -63,7 +63,7 @@
   }
 
   function flyMap (map, flyOptions) {
-    console.log(flyOptions);
+    // console.log(flyOptions);
     setTimeout ( function () {
      map.panTo(flyOptions.endpoint, {animate: true, duration: flyOptions.flightLength});
     }, flyOptions.wait * 1000);

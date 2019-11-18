@@ -858,7 +858,7 @@
       // iterate and apply each to this instance
       if ( Popcorn.isArray( plugin ) ) {
         let currentInstance = this;
-        plugin.forEach( (p) => {console.log(p); currentInstance.defaults (p, defaults)})
+        plugin.forEach( (p) => {currentInstance.defaults (p, defaults);});
         return this;
       }
 
