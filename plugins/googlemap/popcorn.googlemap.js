@@ -13,7 +13,7 @@ var googleCallback;
     // before setting _maploaded to true
     if ( typeof google !== "undefined" && google.maps && google.maps.Geocoder && google.maps.LatLng ) {
       geocoder = new google.maps.Geocoder();
-      Popcorn.getScript( "//maps.stamen.com/js/tile.stamen.js", function() {
+      Popcorn.getScript( "https://maps.stamen.com/js/tile.stamen.js", function() {
         _mapLoaded = true;
       });
     } else {
