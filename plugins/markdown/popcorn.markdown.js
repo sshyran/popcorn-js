@@ -24,7 +24,7 @@
    *
    *   target: a String -- the target div's id.
    *
-   *   markdown: the markdown to be rendered using the markdown template.  Should be a string.
+   *   text: the markdown text to be rendered using the markdown template.  Should be a string.
    *
    *
    * Example:
@@ -71,7 +71,7 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
     if (target)
     {target.appendChild( newdiv );}
 
-    markdown = options.markdown || "" ;
+    markdown = options.text || "" ;
     
     options.container = target || document.createElement( "div" );
 
@@ -139,10 +139,10 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
         label: "End"
       },
       target: "markdown-container",
-      markdown: {
+      text: {
         elem: "input",
         type: "text",
-        label: "Markdown"
+        label: "Markdown Text"
       }
     }
   });
