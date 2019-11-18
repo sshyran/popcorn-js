@@ -1,7 +1,7 @@
 test( "Popcorn Markdown Plugin", function() {
 
   var popped = Popcorn( "#video" ),
-      expects = 5,
+      expects = 4,
       count = 0,
       markdownDiv = document.querySelector( "#markdown-div" );
 
