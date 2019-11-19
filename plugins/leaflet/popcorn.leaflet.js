@@ -83,7 +83,9 @@
     // create a new div within the target div
     // this is later passed on to the maps api
     newdiv = document.createElement( "div" );
+    newdiv.style.display = "none";
     newdiv.id = "leafletdiv" + i;
+    newdiv.classList.add("leaflet-plugin");
     newdiv.style.width = "100%";
     newdiv.style.height = "100%";
     i++;
@@ -220,7 +222,6 @@
             
             if ( options.map ) {
               options.map.div = newdiv;
-              newdiv.style.display = "none";
             }
           }
         };

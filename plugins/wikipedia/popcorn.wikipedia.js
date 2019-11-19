@@ -88,7 +88,7 @@
           options._container = document.createElement( "div" );
           options._container.id = "wikidiv" + i;
           i++;
-          
+          options.container.classList.add("wikipedia-plugin");
           options._container.innerHTML = `<h1><a href="${options.src} target="_blank">${options.title || apiResp.title}</a></h1>`;
           
           // insert the content of the wiki article

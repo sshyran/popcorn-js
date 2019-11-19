@@ -10,6 +10,7 @@
    *   Start: Is the time that you want this plug-in to execute
    *   End: Is the time that you want this plug-in to stop executing
    *   Text: Is the text that you want to appear in the target
+   *   ID: ID for div (defaults to `textdiv${i}`)
    *   Escape: {true|false} Whether to escape the text (e.g., html strings)
    *   Multiline: {true|false} Whether newlines should be turned into <br>s
    *   Target: Is the ID of the element where the text should be placed. An empty target
@@ -67,7 +68,7 @@
    * HTML escape code from mustache.js, used under MIT Licence
    * https://github.com/janl/mustache.js/blob/master/mustache.js
    **/
-  var escapeMap = {
+  const escapeMap = {
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
@@ -117,45 +118,11 @@
 
     return ctxContainer;
   }
+  var i = 0;
 
-  Popcorn.plugin( "text", {
-
-    manifest: {
-      about: {
-        name: "Popcorn Text Plugin",
-        version: "0.1",
-        author: "@humphd"
-      },
-      options: {
-        start: {
-          elem: "input",
-          type: "number",
-          label: "Start"
-        },
-        end: {
-          elem: "input",
-          type: "number",
-          label: "End"
-        },
-        text: {
-          elem: "input",
-          type: "text",
-          label: "Text",
-          "default": "Popcorn.js"
-        },
-        escape: {
-          elem: "input",
-          type: "checkbox",
-          label: "Escape"
-        },
-        multiline: {
-          elem: "input",
-          type: "checkbox",
-          label: "Multiline"
-        }
-      }
-    },
-
+  Popcorn.plugin( "text", function (options ) {
+    
+    return {
     _setup: function( options ) {
 
       var target,
@@ -163,7 +130,10 @@
           container = options._container = document.createElement( "div" );
 
       container.style.display = "none";
-
+      container.id = options.id || `textdiv${i}`;
+      container.classList.add("text-plugin");
+      i++;
+      console.log(container.classList)
       if ( options.target ) {
         // Try to use supplied target
         target = Popcorn.dom.find( options.target );
@@ -228,5 +198,46 @@
         target.removeChild( options._container );
       }
     }
+    }
+  }, {
+      about: {
+        name: "Popcorn Text Plugin",
+        version: "0.1",
+        author: "@humphd"
+      },
+      options: {
+        start: {
+          elem: "input",
+          type: "number",
+          label: "Start"
+        },
+        end: {
+          elem: "input",
+          type: "number",
+          label: "End"
+        },
+        text: {
+          elem: "input",
+          type: "text",
+          label: "Text",
+          "default": "Popcorn.js"
+        },
+        escape: {
+          elem: "input",
+          type: "checkbox",
+          label: "Escape"
+        },
+        multiline: {
+          elem: "input",
+          type: "checkbox",
+          label: "Multiline"
+        },
+        id: {
+          elem: "input",
+          type: "text",
+          label: "ID",
+          optional: true
+        }
+      }
   });
 })( Popcorn );

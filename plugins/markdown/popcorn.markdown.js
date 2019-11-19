@@ -66,6 +66,7 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
     
     newdiv = document.createElement( "div" );
     newdiv.id = "markdowndiv" + i;
+    newdiv.classList.add("markdown-plugin");
     newdiv.style.display = "none";
     i++;
     if (target)

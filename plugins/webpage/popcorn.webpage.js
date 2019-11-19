@@ -26,6 +26,7 @@
         } )
    *
    */
+  var i = 0;
   Popcorn.plugin( "webpage" , {
     manifest: {
       about: {
@@ -72,12 +73,12 @@
       options._iframe = document.createElement( "iframe" );
       options._iframe.classList.add("webpage-plugin")
       options._iframe.style.width = "100%" ;
+      options._iframe.style.display = "none";
       // not sure what a good default would actually look like
       // for now setting in CSS using new class
       //options._iframe.style.minHeight = "100%";
-      options._iframe.id = options.id;
+      options._iframe.id = options.id || `webpageframe${i}`;
       options._iframe.src = options.src;
-      options._iframe.style.display = "none";
 
       // add the hidden iframe to the DOM
       target && target.appendChild( options._iframe );
