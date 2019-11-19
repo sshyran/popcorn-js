@@ -2,45 +2,46 @@
 
 (function ( Popcorn ) {
 
-  var container = {},
+  let container = {},
       spanLocation = 0,
-      setupContainer = function( target ) {
+      i = 0,
+      setupContainer = function( target, container) {
 
-        container[ target ] = document.createElement( "div" );
+        let element = document.createElement( "div" );
 
-        var t = document.getElementById( target );
-        t && t.appendChild( container[ target ] );
+        var t = document.querySelector ( `#${target}`);
+        t && t.appendChild( element );
 
-        container[ target ].style.height = "100%";
-        container[ target ].style.position = "relative";
-
-        return container[ target ];
+        element.style.height = "100%";
+        element.style.position = "relative";
+        element.id = container;
+        element.classList.add("wordriver-plugin");
+        // console.log (container)
+        return element;
       },
       // creates an object of supported, cross platform css transitions
       span = document.createElement( "span" ),
-      prefixes = [ "webkit", "Moz", "ms", "O", "" ],
+      prefixes = ["", "Moz", "webkit", "ms", "O" ],
       specProp = [ "Transform", "TransitionDuration", "TransitionTimingFunction" ],
       supports = {},
       prop;
 
   document.getElementsByTagName( "head" )[ 0 ].appendChild( span );
 
+  // this will always break on unprefixed b/c of lowercase first letter
+  // in those prop names.  oh well!
   for ( var sIdx = 0, sLen = specProp.length; sIdx < sLen; sIdx++ ) {
-
     for ( var pIdx = 0, pLen = prefixes.length; pIdx < pLen; pIdx++ ) {
-
       prop = prefixes[ pIdx ] + specProp[ sIdx ];
-
       if ( prop in span.style ) {
-
         supports[ specProp[ sIdx ].toLowerCase() ] = prop;
         break;
       }
     }
   }
-
+  // console.log(supports);
   // Garbage collect support test span
-  document.getElementsByTagName( "head" )[ 0 ].appendChild( span );
+  document.getElementsByTagName( "head" )[ 0 ].removeChild( span );
 
   /**
    * Word River popcorn plug-in
@@ -92,6 +93,11 @@
             label: "Color",
             "default": "Green",
             optional: true
+          },
+          id: {
+            elem: "input",
+            type: "text",
+            label: "ID"
           }
         }
       },
@@ -99,7 +105,13 @@
       _setup: function( options ) {
 
         options._duration = options.end - options.start;
-        options._container = container[ options.target ] || setupContainer( options.target );
+
+        // we're using the `id` in a strange way which allows the plugin to
+        // reuse an existing wordriver if we want.
+        // so we will check to see if this element exists before creating it
+        options.id = options.id || `wordriver${i}`;
+        i++;
+        options._container =  document.querySelector (`#${options.target} #${options.id}`) || setupContainer( options.target, options.id );
 
         options.word = document.createElement( "span" );
         options.word.style.position = "absolute";
