@@ -34,50 +34,57 @@
         contentDiv = document.createElement( "div" ),
         container,
         goingUp = true;
-
-    if ( target && !target.firstChild ) {
-      target.appendChild ( container = document.createElement( "div" ) );
-      container.style.width = "inherit";
-      container.style.height = "inherit";
-      container.style.overflow = "auto";
-    } else {
-      container = target.firstChild;
-    }
-
-    contentDiv.style.display = "none";
-    contentDiv.id = "timelineDiv" + i;
-
-    //  Default to up if options.direction is non-existant or not up or down
-    options.direction = options.direction || "up";
-    if ( options.direction.toLowerCase() === "down" ) {
-
-      goingUp = false;
-    }
-
-    if ( target && container ) {
-      // if this isnt the first div added to the target div
-      if( goingUp ){
-        // insert the current div before the previous div inserted
-        container.insertBefore( contentDiv, container.firstChild );
-      }
-      else {
-
-        container.appendChild( contentDiv );
-      }
-
-    }
-
-    i++;
-
-    //  Default to empty if not used
-    //options.innerHTML = options.innerHTML || "";
-
-    contentDiv.innerHTML = "<p><span id='big' style='font-size:24px; line-height: 130%;' >" + options.title + "</span><br />" +
-    "<span id='mid' style='font-size: 16px;'>" + options.text + "</span><br />" + options.innerHTML;
-
     return {
 
-      start: function( event, options ) {
+      _setup: function ( options ) {
+        options.id = options.id || "timelineDiv" + i;
+        if (!target) {
+          target = document.querySelector('body').appendChild(document.createElement('div'));
+          target.id = options.target;
+        }
+        container = target.querySelector(`#${options.id}`);
+
+        if ( !container ) {
+          container = document.createElement( "div" );
+          target.appendChild ( container );
+          container.style.width = "inherit";
+          container.style.height = "inherit";
+          container.style.overflow = "auto";
+          container.id = options.id;
+          container.classList.add("timeline-plugin");
+        } 
+
+        //  Default to up if options.direction is non-existant or not up or down
+        options.direction = options.direction || "up";
+        if ( options.direction.toLowerCase() === "down" ) {
+          goingUp = false;
+        }
+ 
+        // if this isnt the first div added to the target div
+        if( goingUp ){
+          console.log('going up');
+            // insert the current div before the previous div inserted
+            container.insertBefore( contentDiv, container.firstChild );
+          }
+        else {
+
+            container.appendChild( contentDiv );
+        }
+        contentDiv.style.display = "none";
+        contentDiv.classList.add("timeline-plugin-item");
+
+        options.innerHTML = options.innerHTML || "";
+
+        contentDiv.innerHTML =`${options.title ?"<h3 >" + options.title + "</h3>" : ""}
+${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
+
+
+        // console.log(contentDiv.textContent);
+        i++;
+
+      },
+
+    start: function( event, options ) {
         contentDiv.style.display = "block";
 
         if( options.direction === "down" ) {
