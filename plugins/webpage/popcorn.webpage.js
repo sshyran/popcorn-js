@@ -26,12 +26,13 @@
         } )
    *
    */
+  var i = 0;
   Popcorn.plugin( "webpage" , {
     manifest: {
       about: {
         name: "Popcorn Webpage Plugin",
-        version: "0.1",
-        author: "@annasob",
+        version: "0.2",
+        author: "@annasob, @titaniumbones",
         website: "annasob.wordpress.com"
       },
       options: {
@@ -65,15 +66,19 @@
       var target = document.getElementById( options.target );
 
       // make src an iframe acceptable string
-      options.src = options.src.replace( /^(https?:)?(\/\/)?/, "//" );
+      // actually skip this or local runs fail
+      // options.src = options.src.replace( /^(https?:)?(\/\/)?/, "//" );
 
       // make an iframe
       options._iframe = document.createElement( "iframe" );
-      options._iframe.setAttribute( "width", "100%" );
-      options._iframe.setAttribute( "height", "100%" );
-      options._iframe.id = options.id;
-      options._iframe.src = options.src;
+      options._iframe.classList.add("webpage-plugin")
+      options._iframe.style.width = "100%" ;
       options._iframe.style.display = "none";
+      // not sure what a good default would actually look like
+      // for now setting in CSS using new class
+      //options._iframe.style.minHeight = "100%";
+      options._iframe.id = options.id || `webpageframe${i}`;
+      options._iframe.src = options.src;
 
       // add the hidden iframe to the DOM
       target && target.appendChild( options._iframe );

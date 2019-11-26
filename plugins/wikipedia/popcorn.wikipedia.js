@@ -1,23 +1,20 @@
 // PLUGIN: WIKIPEDIA
-
-
-var wikiCallback;
-
 (function ( Popcorn ) {
 
   /**
    * Wikipedia popcorn plug-in
    * Displays a wikipedia aricle in the target specified by the user by using
-   * new DOM element instead overwriting them
-   * Options parameter will need a start, end, target, lang, src, title and numberofwords.
-   * -Start is the time that you want this plug-in to execute
-   * -End is the time that you want this plug-in to stop executing
+   * a new DOM element inserted into target. The article HTML will be stripped of images,
+   * table of contents, and certain other features.
+   * Options parameters include start, end, target, lang, src, title and paragraphs.
+   * -Start is the time that you want this plug-in to execute (required)
+   * -End is the time that you want this plug-in to stop executing (required)
    * -Target is the id of the document element that the text from the article needs to be
-   * attached to, this target element must exist on the DOM
+   * attached to, this target element must exist on the DOM 
    * -Lang (optional, defaults to english) is the language in which the article is in.
    * -Src is the url of the article
    * -Title (optional) is the title of the article
-   * -numberofwords (optional, defaults to 200) is  the number of words you want displaid.
+   * -paragraphs (optional, defaults to 6) is the number of paragraphs to display
    *
    * @param {Object} options
    *
@@ -31,14 +28,157 @@ var wikiCallback;
         } )
    *
    */
-  Popcorn.plugin( "wikipedia" , {
 
-    manifest: {
+  // using a counter here to keep track of invocations
+  // would be nice to have a different way to do this, but this seems to be the practice
+  // in other plugins
+  let i = 1;
+
+  // not using DOMParser any more!
+  // let domParser = new DOMParser();
+  // fetch json response asynchronously
+  async function getWiki ( page, lang="en" ) {
+    let url = `https://${lang}.wikipedia.org/w/api.php?origin=*&action=parse&format=json&redirects&page=${page}`;
+    return await fetch(url)
+      .then(function(response){return response.json();})
+      .then(function(response) {
+        return response.parse;
+    })
+    .catch(function(error){console.log(error);});
+  }
+
+  Popcorn.plugin( "wikipedia" , function (options) {
+  
+    // let newdiv,
+    //     target = document.getElementById( options.target );
+    // newdiv.style.width = "100%";
+    // newdiv.style.height = "100%";
+
+    return {
+
+     /**
+     * @member wikipedia
+     * The setup function will get all of the needed
+     * items in place before the start function is called.
+     * This includes getting data from wikipedia, if the data
+     * is not received and processed before start is called start
+     * will not do anything
+     */
+      _setup : async function( options ) {
+        // if the user didn't specify a language default to english
+        if ( !options.lang ) {
+          options.lang = "en";
+        }
+
+        // if the user didn't specify number of paragraphs to use default to 6
+        options.paragraphs  = options.paragraphs || 6;
+        options.src = options.src || options._natives.manifest.options.src[ "default" ];
+        let pageName = options.src.slice( options.src.lastIndexOf( "/" ) + 1 );
+
+        // fetch data from Wikipedia; if successful, process. 
+        let apiResp = await getWiki(pageName, options.lang);
+        if (apiResp && apiResp.text["*"] ) {
+          let _text = apiResp.text["*"];
+          // munge internal links -- hopefully catches all common uses 
+          _text = _text.replace(/href=\"\/wiki\//g, `href="https://${options.lang}.wikipedia.org/wiki/`);
+          _text = _text.replace(/src=\"\/\//g,`src="https://` );
+
+          // create a container
+          // 
+          options._container = document.createElement( "div" );
+          options._container.id = "wikidiv" + i;
+          i++;
+          options.container.classList.add("wikipedia-plugin");
+          options._container.innerHTML = `<h1><a href="${options.src} target="_blank">${options.title || apiResp.title}</a></h1>`;
+          
+          // insert the content of the wiki article
+          options._container.innerHTML += _text;
+
+          // strip these page elements from rendered html.  At present includes:
+          // - editorial notes e.g. about redirects or altenrate spellings, or problems w/ page
+          // - tables of ocntents, and all other tables!
+          // - "Edit" links in section headers
+          // - all image galleries, and other images as well
+          // - empty paragraph that is for some reason usually included in output
+          let removes = ['div[role="note"]', 'p.mw-empty-elt', 'table', 'div#toc', 'div.thumb', 'span.mw-editsection', 'img', 'sup.reference', 'ul.gallery'];
+          for (let r of removes) {
+            let note = options._container.querySelectorAll(r);
+            if (note) {
+              note.forEach (function (n){
+                n.parentNode.removeChild(n)});
+            }
+          }
+
+          // now cut down the article to n paragraphs
+          // use general sibling sleector and `NodeList.forEach()` to remove additional content 
+          let qString = `div.mw-parser-output p:nth-of-type(${options.paragraphs}) ~ *`;
+          
+          let extras = options._container.querySelectorAll(qString);
+          extras.forEach ( (el) => el.remove());
+          
+          // hmm.  would be better served w/ a promise or await, but works for now.  
+          options._fired = true;
+        }
+
+
+      },
+      /**
+       * @member wikipedia
+       * The start function will be executed when the currentTime
+       * of the video  reaches the start time provided by the
+       * options variable
+       */
+      start: function( event, options ){
+        // dont do anything if the information didn't come back from wiki
+        // might be better to use use `await` but I'm not yet sure if async functions
+        // work for `start` and `end` in popcorn plugins
+        var isReady = function () {
+
+          // primitive hack from pre-async days. 
+          if ( !options._fired ) {
+            setTimeout( function () {
+              isReady();
+            }, 13);
+          } else {
+
+            if ( options._container  && document.getElementById (options.target)) {
+                document.getElementById( options.target ).appendChild( options._container );
+                options._added = true;
+            }
+          }
+        };
+        isReady();
+      },
+      /**
+       * @member wikipedia
+       * The end function will be executed when the currentTime
+       * of the video  reaches the end time provided by the
+       * options variable
+       */
+      end: function( event, options ){
+        // ensure that the data was actually added to the
+        // DOM before removal
+        if ( options._added ) {
+          document.getElementById( options.target ).removeChild( options._container );
+        }
+      },
+
+      _teardown: function( options ){
+
+        if ( options._added ) {
+          options._link.parentNode && document.getElementById( options.target ).removeChild( options._link );
+          options._desc.parentNode && document.getElementById( options.target ).removeChild( options._desc );
+          delete options.target;
+        }
+      }
+    };
+  },
+    {
       about:{
         name: "Popcorn Wikipedia Plugin",
-        version: "0.1",
-        author: "@annasob",
-        website: "annasob.wordpress.com"
+        version: "0.2",
+        author: "@annasob, @titaniumbones",
+        website: "https://annasob.wordpress.com"
       },
       options:{
         start: {
@@ -71,11 +211,11 @@ var wikiCallback;
           "default": "Cats",
           optional: true
         },
-        numberofwords: {
+        paragraphs: {
           elem: "input",
           type: "number",
-          label: "Number of Words",
-          "default": "200",
+          label: "Number of Paragraphs",
+          "default": "3",
           optional: true
         },
         target: "wikipedia-container"
@@ -189,4 +329,4 @@ var wikiCallback;
     }
   });
 
-})( Popcorn );
+}) ( Popcorn );

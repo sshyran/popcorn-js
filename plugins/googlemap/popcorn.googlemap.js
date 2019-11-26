@@ -13,7 +13,7 @@ var googleCallback;
     // before setting _maploaded to true
     if ( typeof google !== "undefined" && google.maps && google.maps.Geocoder && google.maps.LatLng ) {
       geocoder = new google.maps.Geocoder();
-      Popcorn.getScript( "//maps.stamen.com/js/tile.stamen.js", function() {
+      Popcorn.getScript( "https://maps.stamen.com/js/tile.stamen.js", function() {
         _mapLoaded = true;
       });
     } else {
@@ -23,11 +23,11 @@ var googleCallback;
     }
   };
   // function that loads the google api
-  loadMaps = function () {
+  loadMaps = function (apiKey) {
     // for some reason the Google Map API adds content to the body
     if ( document.body ) {
       _mapFired = true;
-      Popcorn.getScript( "//maps.google.com/maps/api/js?sensor=false&callback=googleCallback" );
+      Popcorn.getScript( "https://maps.googleapis.com/maps/api/js?key="+apiKey+"&callback=googleCallback&libraries=geometry");
     } else {
       setTimeout(function () {
         loadMaps();
@@ -81,6 +81,7 @@ var googleCallback;
    * -Location: the adress you want the map to display, must be present if lat and lng are not specified.
    * Note: using location requires extra loading time, also not specifying both lat/lng and location will
    * cause and error.
+   * -apiKey is your Google Maps API key
    *
    * Tweening works using the following specifications:
    * -location is the start point when using an auto generated route
@@ -104,7 +105,8 @@ var googleCallback;
    type: "ROADMAP",
    target: "map",
    lat: 43.665429,
-   lng: -79.403323
+   lng: -79.403323,
+   apiKey: "AO3ousdflj4_slkjwmsdmmr"
    } )
    *
    */
@@ -120,7 +122,7 @@ var googleCallback;
     // if this is the firest time running the plugins
     // call the function that gets the sctipt
     if ( !_mapFired ) {
-      loadMaps();
+      loadMaps(options.apiKey);
     }
 
     // create a new div this way anything in the target div is left intact
@@ -389,7 +391,7 @@ var googleCallback;
   }, {
     about: {
       name: "Popcorn Google Map Plugin",
-      version: "0.1",
+      version: "0.2",
       author: "@annasob",
       website: "annasob.wordpress.com"
     },
@@ -449,6 +451,12 @@ var googleCallback;
         label: "Pitch",
         "default": 1,
         optional: true
+      },
+      apiKey: {
+        elem: "input",
+        type: "text",
+        label: "ApiKey",
+        optional: false
       }
     }
   });

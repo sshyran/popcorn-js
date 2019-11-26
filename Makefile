@@ -14,13 +14,14 @@ VERSION ?= $(shell git show -s --pretty=format:%h)
 
 RHINO ?= java -jar ${BUILD_DIR}/js.jar
 
-CLOSURE_COMPILER = ${BUILD_DIR}/google-compiler-20100917.jar
+# CLOSURE_COMPILER = ${BUILD_DIR}/google-compiler-20100917.jar
+CLOSURE_COMPILER = google-closure-compiler
 compile = @@${MINJAR} $(1) \
 	                    --compilation_level SIMPLE_OPTIMIZATIONS \
 	                    --js_output_file $(2)
 
 # minify
-MINJAR ?= java -jar ${CLOSURE_COMPILER}
+MINJAR ?= npx ${CLOSURE_COMPILER}
 
 # source
 POPCORN_SRC = ${PREFIX}/popcorn.js
