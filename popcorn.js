@@ -857,13 +857,8 @@
       // If an array of default configurations is provided,
       // iterate and apply each to this instance
       if ( Popcorn.isArray( plugin ) ) {
-
-        Popcorn.forEach( plugin, function( obj ) {
-          for ( var name in obj ) {
-            this.defaults( name, obj[ name ] );
-          }
-        }, this );
-
+        let currentInstance = this;
+        plugin.forEach( (p) => {currentInstance.defaults (p, defaults);});
         return this;
       }
 

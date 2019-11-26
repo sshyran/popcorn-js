@@ -24,6 +24,7 @@
    *    });
    **/
 
+  var i = 0;
   Popcorn.plugin( "footnote", {
 
     manifest: {
@@ -49,6 +50,11 @@
           type: "text",
           label: "Text"
         },
+        id: {
+          elem: "input",
+          type: "text",
+          label: "ID"
+        },
         target: "footnote-container"
       }
     },
@@ -59,8 +65,10 @@
 
       options._container = document.createElement( "div" );
       options._container.style.display = "none";
+      options._container.id = options.id || `footnotediv${i}`;
+      options._container.classList.add("footnote-plugin");
       options._container.innerHTML  = options.text;
-
+      i++;
       target.appendChild( options._container );
     },
 
