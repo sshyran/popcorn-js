@@ -13,7 +13,7 @@ Anything you can do on the web can be turned into a Popcorn.js plugin, and becom
 
 Try a live code example [here](http://jsfiddle.net/rwaldron/xhXE6/).
 
-Running Tets
+Running Tests
 -------------
 
 1. Install `node and npm`, find more details [here](https://www.npmjs.com/get-npm)
